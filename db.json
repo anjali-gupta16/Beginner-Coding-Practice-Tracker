@@ -1,0 +1,13 @@
+{
+  "users": [
+    {
+      "id": "1775658370758",
+      "name": "Anjali",
+      "email": "anjali.gupta.ashok16@gmail.com",
+      "password": "Anjali@123",
+      "data": {
+        "codepulse_first_login": "2026-04-08T14:26:10.778Z"
+      }
+    }
+  ]
+}
