@@ -8,8 +8,7 @@ const DB_PATH = path.join(process.cwd(), 'db.json');
 
 app.use(cors());
 app.use(express.json());
-// Serve static files from the 'public' directory
-app.use(express.static(path.join(process.cwd(), 'public')));
+// Static serving is handled by Vercel from the root directory
 
 // Helper reading/writing DB
 async function readDB() {
@@ -110,11 +109,6 @@ app.get('/api/load/:userId', async (req, res) => {
     }
 
     res.json({ data: user.data || {} });
-});
-
-// Fallback to index.html for any other requests (SPA support)
-app.get('*', (req, res) => {
-    res.sendFile(path.join(process.cwd(), 'public', 'index.html'));
 });
 
 module.exports = app;
