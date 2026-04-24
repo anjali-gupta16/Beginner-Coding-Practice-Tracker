@@ -6,7 +6,7 @@
     'use strict';
 
     // ── Auth & API ──
-    const API_URL = 'http://localhost:3001/api';
+    const API_URL = '/api';
     let currentUser = null;
     let syncTimeout = null;
 
