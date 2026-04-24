@@ -1,11 +1,11 @@
-/* ========================================
-   CodePulse – App Logic
+﻿/* ========================================
+   CodePulse ΓÇô App Logic
    ======================================== */
 
 (function () {
     'use strict';
 
-    // ── Auth & API ──
+    // ΓöÇΓöÇ Auth & API ΓöÇΓöÇ
     const API_URL = '/api';
     let currentUser = null;
     let syncTimeout = null;
@@ -63,7 +63,7 @@
         initApp();
     }
 
-    // ── Constants ──
+    // ΓöÇΓöÇ Constants ΓöÇΓöÇ
     const STORAGE_KEY = 'codepulse_sessions';
     const THEME_KEY = 'codepulse_theme';
     const USER_KEY = 'codepulse_user';
@@ -87,7 +87,7 @@
         { text: "The most damaging phrase in the language is 'We've always done it this way.'", author: "Grace Hopper" },
         { text: "In order to be irreplaceable, one must always be different.", author: "Coco Chanel" },
         { text: "Java is to JavaScript what car is to carpet.", author: "Chris Heilmann" },
-        { text: "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.", author: "Antoine de Saint-Exupéry" },
+        { text: "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.", author: "Antoine de Saint-Exup├⌐ry" },
         { text: "Experience is the name everyone gives to their mistakes.", author: "Oscar Wilde" },
         { text: "The function of good software is to make the complex appear to be simple.", author: "Grady Booch" },
     ];
@@ -96,7 +96,7 @@
         "Regular practice of recursion strengthens algorithmic intuition. Try solving one new problem each day!",
         "When stuck on a problem, try breaking it down into smaller sub-problems first.",
         "Reading other people's code is one of the best ways to learn new patterns and techniques.",
-        "Don't just solve problems — understand the time and space complexity of your solutions.",
+        "Don't just solve problems ΓÇö understand the time and space complexity of your solutions.",
         "Take breaks! The Pomodoro Technique (25 min focus + 5 min break) works great for coding.",
         "Explain your solution out loud. Teaching is the best way to solidify understanding.",
         "Start with brute force, then optimize. A working solution is better than no solution.",
@@ -104,32 +104,32 @@
     ];
 
     const MOTIVATION_MESSAGES = [
-        { min: 0, max: 0, emoji: '🚀', text: 'Start your coding journey today!', sub: 'Consistency is the key to mastery.' },
-        { min: 1, max: 2, emoji: '🌱', text: 'Great start! Keep building momentum!', sub: 'Every expert was once a beginner.' },
-        { min: 3, max: 6, emoji: '🔥', text: 'You\'re on fire!', sub: 'Your dedication is paying off.' },
-        { min: 7, max: 13, emoji: '⭐', text: 'Incredible consistency!', sub: 'You\'re in the top tier of dedicated learners.' },
-        { min: 14, max: 29, emoji: '💎', text: 'Diamond-level dedication!', sub: 'Two weeks strong — you\'re unstoppable!' },
-        { min: 30, max: Infinity, emoji: '🏆', text: 'You\'re a legend!', sub: 'A month+ streak. True mastery in the making.' },
+        { min: 0, max: 0, emoji: '≡ƒÜÇ', text: 'Start your coding journey today!', sub: 'Consistency is the key to mastery.' },
+        { min: 1, max: 2, emoji: '≡ƒî▒', text: 'Great start! Keep building momentum!', sub: 'Every expert was once a beginner.' },
+        { min: 3, max: 6, emoji: '≡ƒöÑ', text: 'You\'re on fire!', sub: 'Your dedication is paying off.' },
+        { min: 7, max: 13, emoji: 'Γ¡É', text: 'Incredible consistency!', sub: 'You\'re in the top tier of dedicated learners.' },
+        { min: 14, max: 29, emoji: '≡ƒÆÄ', text: 'Diamond-level dedication!', sub: 'Two weeks strong ΓÇö you\'re unstoppable!' },
+        { min: 30, max: Infinity, emoji: '≡ƒÅå', text: 'You\'re a legend!', sub: 'A month+ streak. True mastery in the making.' },
     ];
 
     const BADGES = [
-        { id: 'first_login', name: 'First Login 🎉', emoji: '🎉', type: 'first_login', threshold: 1 },
-        { id: 'streak_3', name: '3-Day Streak 🌟', emoji: '🌟', type: 'streak', threshold: 3 },
-        { id: 'streak_7', name: '7-Day Streak 🔥', emoji: '🔥', type: 'streak', threshold: 7 },
-        { id: 'streak_14', name: '14-Day Streak ⚡', emoji: '⚡', type: 'streak', threshold: 14 },
-        { id: 'streak_30', name: '30-Day Streak 💎', emoji: '💎', type: 'streak', threshold: 30 },
-        { id: 'solved_10', name: '10 Problems Solved', emoji: '🎯', type: 'solved', threshold: 10 },
-        { id: 'solved_50', name: '50 Problems Solved', emoji: '🧠', type: 'solved', threshold: 50 },
-        { id: 'solved_100', name: '100 Solved 💯', emoji: '💯', type: 'solved', threshold: 100 },
-        { id: 'solved_250', name: '250 Problems! 🚀', emoji: '🚀', type: 'solved', threshold: 250 },
-        { id: 'hours_10', name: '10 Hours Logged ⏰', emoji: '⏰', type: 'hours', threshold: 10 },
-        { id: 'hours_50', name: '50 Hours Logged 📚', emoji: '📚', type: 'hours', threshold: 50 },
-        { id: 'topic_master', name: 'Topic Explorer 🗺️', emoji: '🗺️', type: 'topics', threshold: 5 },
-        { id: 'hard_solver', name: 'Hard Mode Hero 💪', emoji: '💪', type: 'hard', threshold: 10 },
-        { id: 'speed_demon', name: 'Speed Demon ⚡', emoji: '⚡', type: 'speed', threshold: 1 },
-        { id: 'night_owl', name: 'Night Owl 🦉', emoji: '🦉', type: 'night_owl', threshold: 3 },
-        { id: 'early_bird', name: 'Early Bird 🐦', emoji: '🐦', type: 'early_bird', threshold: 3 },
-        { id: 'consistent_coder', name: 'Consistent Coder 📆', emoji: '📆', type: 'consistent', threshold: 1 },
+        { id: 'first_login', name: 'First Login ≡ƒÄë', emoji: '≡ƒÄë', type: 'first_login', threshold: 1 },
+        { id: 'streak_3', name: '3-Day Streak ≡ƒîƒ', emoji: '≡ƒîƒ', type: 'streak', threshold: 3 },
+        { id: 'streak_7', name: '7-Day Streak ≡ƒöÑ', emoji: '≡ƒöÑ', type: 'streak', threshold: 7 },
+        { id: 'streak_14', name: '14-Day Streak ΓÜí', emoji: 'ΓÜí', type: 'streak', threshold: 14 },
+        { id: 'streak_30', name: '30-Day Streak ≡ƒÆÄ', emoji: '≡ƒÆÄ', type: 'streak', threshold: 30 },
+        { id: 'solved_10', name: '10 Problems Solved', emoji: '≡ƒÄ»', type: 'solved', threshold: 10 },
+        { id: 'solved_50', name: '50 Problems Solved', emoji: '≡ƒºá', type: 'solved', threshold: 50 },
+        { id: 'solved_100', name: '100 Solved ≡ƒÆ»', emoji: '≡ƒÆ»', type: 'solved', threshold: 100 },
+        { id: 'solved_250', name: '250 Problems! ≡ƒÜÇ', emoji: '≡ƒÜÇ', type: 'solved', threshold: 250 },
+        { id: 'hours_10', name: '10 Hours Logged ΓÅ░', emoji: 'ΓÅ░', type: 'hours', threshold: 10 },
+        { id: 'hours_50', name: '50 Hours Logged ≡ƒôÜ', emoji: '≡ƒôÜ', type: 'hours', threshold: 50 },
+        { id: 'topic_master', name: 'Topic Explorer ≡ƒù║∩╕Å', emoji: '≡ƒù║∩╕Å', type: 'topics', threshold: 5 },
+        { id: 'hard_solver', name: 'Hard Mode Hero ≡ƒÆ¬', emoji: '≡ƒÆ¬', type: 'hard', threshold: 10 },
+        { id: 'speed_demon', name: 'Speed Demon ΓÜí', emoji: 'ΓÜí', type: 'speed', threshold: 1 },
+        { id: 'night_owl', name: 'Night Owl ≡ƒªë', emoji: '≡ƒªë', type: 'night_owl', threshold: 3 },
+        { id: 'early_bird', name: 'Early Bird ≡ƒÉª', emoji: '≡ƒÉª', type: 'early_bird', threshold: 3 },
+        { id: 'consistent_coder', name: 'Consistent Coder ≡ƒôå', emoji: '≡ƒôå', type: 'consistent', threshold: 1 },
     ];
 
     const LEADERBOARD_DATA = [
@@ -162,30 +162,30 @@
         { text: 'Practice Loops for 30+ minutes', topic: 'Loops', minTime: 30 },
         { text: 'Solve 1 Hard problem in any topic', difficulty: 'Hard', count: 1 },
         { text: 'Complete 3 problems in Strings', topic: 'Strings', count: 3 },
-        { text: 'Practice Functions — solve 2 problems', topic: 'Functions', count: 2 },
+        { text: 'Practice Functions ΓÇö solve 2 problems', topic: 'Functions', count: 2 },
         { text: 'Tackle a Recursion problem today', topic: 'Recursion', count: 1 },
         { text: 'Solve 2 Medium difficulty problems', difficulty: 'Medium', count: 2 },
         { text: 'Log 45+ minutes of practice today', minTime: 45 },
         { text: 'Solve 3 problems in any topic', count: 3 },
         { text: 'Try an OOP problem today', topic: 'OOP', count: 1 },
-        { text: 'Practice Sorting — solve 2 problems', topic: 'Sorting', count: 2 },
+        { text: 'Practice Sorting ΓÇö solve 2 problems', topic: 'Sorting', count: 2 },
         { text: 'Solve 1 Linked Lists problem', topic: 'Linked Lists', count: 1 },
         { text: 'Practice for 60+ minutes today', minTime: 60 },
         { text: 'Solve 4 easy problems in any topic', difficulty: 'Easy', count: 4 },
     ];
 
     const LEARNING_PATH_ORDER = [
-        { topic: 'Arrays', desc: 'Master indexed collections and operations', icon: '📦' },
-        { topic: 'Loops', desc: 'Iterate through data efficiently', icon: '🔄' },
-        { topic: 'Functions', desc: 'Build reusable code blocks', icon: '⚙️' },
-        { topic: 'Strings', desc: 'Manipulate text data', icon: '📝' },
-        { topic: 'OOP', desc: 'Object-oriented design patterns', icon: '🏗️' },
-        { topic: 'Recursion', desc: 'Solve problems by breaking them down', icon: '🪆' },
-        { topic: 'Sorting', desc: 'Organize data with algorithms', icon: '📊' },
-        { topic: 'Linked Lists', desc: 'Dynamic linear data structures', icon: '🔗' },
-        { topic: 'Trees', desc: 'Hierarchical data structures', icon: '🌳' },
-        { topic: 'Graphs', desc: 'Network and relationship modeling', icon: '🕸️' },
-        { topic: 'Dynamic Programming', desc: 'Optimize with memoization', icon: '🧩' },
+        { topic: 'Arrays', desc: 'Master indexed collections and operations', icon: '≡ƒôª' },
+        { topic: 'Loops', desc: 'Iterate through data efficiently', icon: '≡ƒöä' },
+        { topic: 'Functions', desc: 'Build reusable code blocks', icon: 'ΓÜÖ∩╕Å' },
+        { topic: 'Strings', desc: 'Manipulate text data', icon: '≡ƒô¥' },
+        { topic: 'OOP', desc: 'Object-oriented design patterns', icon: '≡ƒÅù∩╕Å' },
+        { topic: 'Recursion', desc: 'Solve problems by breaking them down', icon: '≡ƒ¬å' },
+        { topic: 'Sorting', desc: 'Organize data with algorithms', icon: '≡ƒôè' },
+        { topic: 'Linked Lists', desc: 'Dynamic linear data structures', icon: '≡ƒöù' },
+        { topic: 'Trees', desc: 'Hierarchical data structures', icon: '≡ƒî│' },
+        { topic: 'Graphs', desc: 'Network and relationship modeling', icon: '≡ƒò╕∩╕Å' },
+        { topic: 'Dynamic Programming', desc: 'Optimize with memoization', icon: '≡ƒº⌐' },
     ];
 
     const BUDDY_POOL = [
@@ -199,15 +199,15 @@
         { name: 'Raj Gupta', initials: 'RG', color: '#004b71', topics: ['Recursion','Trees'] },
     ];
 
-    // ── State ──
+    // ΓöÇΓöÇ State ΓöÇΓöÇ
     let sessions = [];
     let chartInstances = {};
 
-    // ── DOM Refs ──
+    // ΓöÇΓöÇ DOM Refs ΓöÇΓöÇ
     const $ = (sel) => document.querySelector(sel);
     const $$ = (sel) => document.querySelectorAll(sel);
 
-    // ── Init ──
+    // ΓöÇΓöÇ Init ΓöÇΓöÇ
     function init() {
         bindAuth();
         const storedUser = localStorage.getItem(USER_KEY);
@@ -244,7 +244,7 @@
         checkWeeklyLetter();
     }
 
-    // ── Data Management ──
+    // ΓöÇΓöÇ Data Management ΓöÇΓöÇ
     function loadSessions() {
         try {
             sessions = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
@@ -268,7 +268,7 @@
         checkNewBadges();
     }
 
-    // ── Theme ──
+    // ΓöÇΓöÇ Theme ΓöÇΓöÇ
     function loadTheme() {
         const theme = localStorage.getItem(THEME_KEY) || 'light';
         document.documentElement.setAttribute('data-theme', theme);
@@ -294,7 +294,7 @@
         if (btn) btn.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
     }
 
-    // ── Navigation ──
+    // ΓöÇΓöÇ Navigation ΓöÇΓöÇ
     function navigateTo(page) {
         $$('.page').forEach(p => p.classList.remove('active'));
         $$('.nav-item').forEach(n => n.classList.remove('active'));
@@ -338,7 +338,7 @@
         }
     }
 
-    // ── Event Binding ──
+    // ΓöÇΓöÇ Event Binding ΓöÇΓöÇ
     function bindAuth() {
         $$('.auth-tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -506,7 +506,7 @@
         $('#find-buddy-btn')?.addEventListener('click', renderStudyBuddy);
     }
 
-    // ── Form Handling ──
+    // ΓöÇΓöÇ Form Handling ΓöÇΓöÇ
     function setDefaultDate() {
         const dateInput = $('#practice-date');
         if (dateInput) {
@@ -536,13 +536,13 @@
         $$('.diff-btn')[1].classList.add('active'); // default to Medium
         $('#practice-difficulty').value = 'Medium';
 
-        showToast('Session saved successfully! 🎉');
+        showToast('Session saved successfully! ≡ƒÄë');
 
         // Update tip
         $('#practice-tip').textContent = TIPS[Math.floor(Math.random() * TIPS.length)];
     }
 
-    // ── Render All ──
+    // ΓöÇΓöÇ Render All ΓöÇΓöÇ
     function renderAll() {
         renderDashboard();
         renderWeeklyChart();
@@ -566,7 +566,7 @@
         renderStreakFreeze();
     }
 
-    // ── Dashboard ──
+    // ΓöÇΓöÇ Dashboard ΓöÇΓöÇ
     function renderDashboard() {
         const streak = calculateStreak();
         const longestStreak = calculateLongestStreak();
@@ -594,7 +594,7 @@
         const quoteEl = $('#daily-quote');
         if (quoteEl) {
             quoteEl.querySelector('p').textContent = `"${quote.text}"`;
-            quoteEl.querySelector('.quote-author').textContent = `— ${quote.author}`;
+            quoteEl.querySelector('.quote-author').textContent = `ΓÇö ${quote.author}`;
         }
     }
 
@@ -616,7 +616,7 @@
         requestAnimationFrame(step);
     }
 
-    // ── Weekly Chart (Dashboard) ──
+    // ΓöÇΓöÇ Weekly Chart (Dashboard) ΓöÇΓöÇ
     function renderWeeklyChart() {
         const ctx = document.getElementById('weekly-chart');
         if (!ctx) return;
@@ -682,7 +682,7 @@
         });
     }
 
-    // ── Recent Sessions ──
+    // ΓöÇΓöÇ Recent Sessions ΓöÇΓöÇ
     function renderRecentSessions() {
         const list = $('#recent-sessions-list');
         if (!list) return;
@@ -709,9 +709,9 @@
                         <span class="session-topic-name">${s.topic}</span>
                         <span class="session-meta">
                             <span>${formatDate(s.date)}</span>
-                            <span>•</span>
+                            <span>ΓÇó</span>
                             <span>${s.difficulty}</span>
-                            <span>•</span>
+                            <span>ΓÇó</span>
                             <span>${s.time} min</span>
                         </span>
                     </div>
@@ -720,7 +720,7 @@
         }).join('');
     }
 
-    // ── Motivation ──
+    // ΓöÇΓöÇ Motivation ΓöÇΓöÇ
     function renderMotivation() {
         const streak = calculateStreak();
         const msg = MOTIVATION_MESSAGES.find(m => streak >= m.min && streak <= m.max) || MOTIVATION_MESSAGES[0];
@@ -733,7 +733,7 @@
         }
     }
 
-    // ── Log Sidebar ──
+    // ΓöÇΓöÇ Log Sidebar ΓöÇΓöÇ
     function renderLogSidebar() {
         // Today's summary
         const todaySessions = sessions.filter(s => s.date === getToday());
@@ -764,7 +764,7 @@
             </div>`).join('');
     }
 
-    // ── Progress Page ──
+    // ΓöÇΓöÇ Progress Page ΓöÇΓöÇ
     function renderProgressPage() {
         // Monthly stats
         const now = new Date();
@@ -783,13 +783,13 @@
         const topicCounts = {};
         sessions.forEach(s => { topicCounts[s.topic] = (topicCounts[s.topic] || 0) + s.problems; });
         const topTopic = Object.entries(topicCounts).sort((a, b) => b[1] - a[1])[0];
-        $('#top-topic').textContent = topTopic ? topTopic[0] : '—';
+        $('#top-topic').textContent = topTopic ? topTopic[0] : 'ΓÇö';
 
         renderProgressWeeklyChart();
         renderTopicChart();
     }
 
-    // ── Progress Weekly Chart ──
+    // ΓöÇΓöÇ Progress Weekly Chart ΓöÇΓöÇ
     function renderProgressWeeklyChart() {
         const ctx = document.getElementById('progress-weekly-chart');
         if (!ctx) return;
@@ -861,7 +861,7 @@
         });
     }
 
-    // ── Topic Chart ──
+    // ΓöÇΓöÇ Topic Chart ΓöÇΓöÇ
     function renderTopicChart() {
         const ctx = document.getElementById('topic-chart');
         if (!ctx) return;
@@ -924,7 +924,7 @@
         });
     }
 
-    // ── Heatmap ──
+    // ΓöÇΓöÇ Heatmap ΓöÇΓöÇ
     function renderHeatmap() {
         const container = $('#heatmap-container');
         if (!container) return;
@@ -963,7 +963,7 @@
         }
     }
 
-    // ── Achievements List (Progress page) ──
+    // ΓöÇΓöÇ Achievements List (Progress page) ΓöÇΓöÇ
     function renderAchievementsList() {
         const list = $('#achievements-list');
         if (!list) return;
@@ -990,7 +990,7 @@
             </div>`).join('');
     }
 
-    // ── Leaderboard ──
+    // ΓöÇΓöÇ Leaderboard ΓöÇΓöÇ
     function renderLeaderboard() {
         const container = $('#leaderboard-rows');
         if (!container) return;
@@ -1012,9 +1012,9 @@
         container.innerHTML = allEntries.map((entry, idx) => {
             let rankDisplay = idx + 1;
             let medalClass = '';
-            if (idx === 0) rankDisplay = '🥇';
-            else if (idx === 1) rankDisplay = '🥈';
-            else if (idx === 2) rankDisplay = '🥉';
+            if (idx === 0) rankDisplay = '≡ƒÑç';
+            else if (idx === 1) rankDisplay = '≡ƒÑê';
+            else if (idx === 2) rankDisplay = '≡ƒÑë';
 
             return `
                 <div class="leaderboard-row ${entry.isUser ? 'current-user' : ''}">
@@ -1032,7 +1032,7 @@
         }).join('');
     }
 
-    // ── Badges ──
+    // ΓöÇΓöÇ Badges ΓöÇΓöÇ
     function renderBadges() {
         const grid = $('#badges-grid');
         if (!grid) return;
@@ -1064,7 +1064,7 @@
                     <span class="badge-emoji">${badge.emoji}</span>
                     <span class="badge-name">${badge.name}</span>
                     ${completed
-                    ? '<span class="badge-status done">✓ Completed</span>'
+                    ? '<span class="badge-status done">Γ£ô Completed</span>'
                     : `<div class="badge-progress-wrap">
                             <div class="progress-bar">
                                 <div class="progress-fill" style="width: ${progress}%"></div>
@@ -1104,7 +1104,7 @@
         });
     }
 
-    // ── Challenge Progress ──
+    // ΓöÇΓöÇ Challenge Progress ΓöÇΓöÇ
     function renderChallengeProgress() {
         const weekSessions = getThisWeekSessions();
         const weekProblems = weekSessions.reduce((s, e) => s + e.problems, 0);
@@ -1115,7 +1115,7 @@
         $('#challenge-count').textContent = `${progress} / ${target}`;
     }
 
-    // ── Reminder ──
+    // ΓöÇΓöÇ Reminder ΓöÇΓöÇ
     function checkReminder() {
         const todaySessions = sessions.filter(s => s.date === getToday());
         const banner = $('#reminder-banner');
@@ -1130,7 +1130,7 @@
         }
     }
 
-    // ── Toast ──
+    // ΓöÇΓöÇ Toast ΓöÇΓöÇ
     function showToast(message) {
         const toast = $('#toast');
         const toastMsg = $('#toast-message');
@@ -1139,7 +1139,7 @@
         setTimeout(() => toast.classList.remove('show'), 3000);
     }
 
-    // ── Utility Functions ──
+    // ΓöÇΓöÇ Utility Functions ΓöÇΓöÇ
     function getToday() {
         return formatDateISO(new Date());
     }
@@ -1227,7 +1227,7 @@
         return streak;
     }
 
-    // ── XP System ──
+    // ΓöÇΓöÇ XP System ΓöÇΓöÇ
     function getXP() { return parseInt(localStorage.getItem(XP_KEY)) || 0; }
     function addXP(amount) {
         const prev = getXP();
@@ -1249,10 +1249,10 @@
         return { level, xpInLevel: remaining, xpForNext: level * 100 };
     }
     function getLevelInfo(level) {
-        if (level <= 3) return { name: 'Beginner', icon: '🌱' };
-        if (level <= 6) return { name: 'Intermediate', icon: '⚡' };
-        if (level <= 9) return { name: 'Advanced', icon: '🔥' };
-        return { name: 'Master', icon: '👑' };
+        if (level <= 3) return { name: 'Beginner', icon: '≡ƒî▒' };
+        if (level <= 6) return { name: 'Intermediate', icon: 'ΓÜí' };
+        if (level <= 9) return { name: 'Advanced', icon: '≡ƒöÑ' };
+        return { name: 'Master', icon: '≡ƒææ' };
     }
     function renderXP() {
         const xp = getXP();
@@ -1265,7 +1265,7 @@
         if ($('#xp-bar-fill')) $('#xp-bar-fill').style.width = pct + '%';
         if ($('#xp-bar-text')) $('#xp-bar-text').textContent = `${xpInLevel} / ${xpForNext} XP`;
         // Banner
-        if ($('#xp-banner-level')) $('#xp-banner-level').textContent = `Level ${level} — ${info.name}`;
+        if ($('#xp-banner-level')) $('#xp-banner-level').textContent = `Level ${level} ΓÇö ${info.name}`;
         if ($('#xp-banner-icon')) $('#xp-banner-icon').textContent = info.icon;
         if ($('#xp-banner-bar-fill')) $('#xp-banner-bar-fill').style.width = pct + '%';
         if ($('#xp-banner-xp')) $('#xp-banner-xp').textContent = `${xpInLevel} / ${xpForNext} XP to next level`;
@@ -1280,7 +1280,7 @@
         setTimeout(() => t.classList.remove('show'), 2500);
     }
 
-    // ── Daily Challenge ──
+    // ΓöÇΓöÇ Daily Challenge ΓöÇΓöÇ
     function getTodayChallenge() {
         const idx = getDayOfYear() % DAILY_CHALLENGES.length;
         return DAILY_CHALLENGES[idx];
@@ -1291,7 +1291,7 @@
         const todayS = sessions.filter(s => s.date === getToday());
         const done = isChallengeComplete(c, todayS);
         if ($('#daily-challenge-status')) {
-            $('#daily-challenge-status').textContent = done ? 'Completed ✓' : 'Pending';
+            $('#daily-challenge-status').textContent = done ? 'Completed Γ£ô' : 'Pending';
             $('#daily-challenge-status').className = 'daily-challenge-status' + (done ? ' done' : '');
         }
     }
@@ -1312,13 +1312,13 @@
             if (!localStorage.getItem(key)) {
                 localStorage.setItem(key, '1');
                 addXP(25);
-                showToast('Daily Challenge completed! +25 XP 🎯');
+                showToast('Daily Challenge completed! +25 XP ≡ƒÄ»');
             }
         }
         renderDailyChallenge();
     }
 
-    // ── Habit Grid ──
+    // ΓöÇΓöÇ Habit Grid ΓöÇΓöÇ
     function renderHabitGrid() {
         const grid = $('#habit-grid');
         if (!grid) return;
@@ -1342,7 +1342,7 @@
         grid.innerHTML = html;
     }
 
-    // ── Weekly Goal ──
+    // ΓöÇΓöÇ Weekly Goal ΓöÇΓöÇ
     function renderWeeklyGoal() {
         const goal = parseInt(localStorage.getItem(WEEKLY_GOAL_KEY)) || 5;
         const weekDates = new Set(getThisWeekSessions().map(s => s.date));
@@ -1359,7 +1359,7 @@
         }
     }
 
-    // ── Consistency Score ──
+    // ΓöÇΓöÇ Consistency Score ΓöÇΓöÇ
     function calculateConsistency() {
         const today = new Date();
         let practiced = 0;
@@ -1375,7 +1375,7 @@
         if ($('#stat-consistency')) $('#stat-consistency').innerHTML = `${c}<small>%</small>`;
     }
 
-    // ── Longest Streak ──
+    // ΓöÇΓöÇ Longest Streak ΓöÇΓöÇ
     function calculateLongestStreak() {
         if (sessions.length === 0) return 0;
         const dates = [...new Set(sessions.map(s => s.date))].sort();
@@ -1390,7 +1390,7 @@
         return longest;
     }
 
-    // ── Streak Freeze ──
+    // ΓöÇΓöÇ Streak Freeze ΓöÇΓöÇ
     function getWeekId() {
         const d = new Date(); const start = new Date(d.getFullYear(), 0, 1);
         return d.getFullYear() + '-W' + Math.ceil(((d - start) / 86400000 + start.getDay() + 1) / 7);
@@ -1406,7 +1406,7 @@
         const log = JSON.parse(localStorage.getItem(STREAK_FREEZE_KEY + '_log') || '[]');
         log.push(today);
         localStorage.setItem(STREAK_FREEZE_KEY + '_log', JSON.stringify(log));
-        showToast('Streak freeze activated! ❄️');
+        showToast('Streak freeze activated! Γ¥ä∩╕Å');
         renderAll();
     }
     function renderStreakFreeze() {
@@ -1418,7 +1418,7 @@
         } else { btn.style.display = 'none'; }
     }
 
-    // ── Miss Me Popup ──
+    // ΓöÇΓöÇ Miss Me Popup ΓöÇΓöÇ
     function checkMissMe() {
         if (sessions.length === 0) return;
         const dismissed = localStorage.getItem(MISS_ME_KEY);
@@ -1432,7 +1432,7 @@
         }
     }
 
-    // ── Weekly Progress Letter ──
+    // ΓöÇΓöÇ Weekly Progress Letter ΓöÇΓöÇ
     function checkWeeklyLetter() {
         const now = new Date();
         if (now.getDay() === 1) { // Monday
@@ -1459,27 +1459,27 @@
         const topics = [...new Set(last7.map(s => s.topic))];
         const streak = calculateStreak();
         body.innerHTML = `
-            <div class="letter-greeting">Hey there! 👋</div>
+            <div class="letter-greeting">Hey there! ≡ƒæï</div>
             <p>Here's your weekly coding progress summary:</p>
             <div class="letter-stats">
                 <div class="letter-stat"><span class="letter-stat-val">${problems}</span><span>Problems Solved</span></div>
                 <div class="letter-stat"><span class="letter-stat-val">${hours}h</span><span>Practice Time</span></div>
                 <div class="letter-stat"><span class="letter-stat-val">${days}</span><span>Active Days</span></div>
-                <div class="letter-stat"><span class="letter-stat-val">${streak}🔥</span><span>Current Streak</span></div>
+                <div class="letter-stat"><span class="letter-stat-val">${streak}≡ƒöÑ</span><span>Current Streak</span></div>
             </div>
             ${topics.length > 0 ? `<p>Topics covered: <strong>${topics.join(', ')}</strong></p>` : ''}
-            <p class="letter-cta">${problems > 10 ? 'Amazing week! Keep pushing forward! 🚀' : problems > 0 ? 'Good progress! Try to increase your daily practice. 💪' : 'Let\'s get back on track this week! 🎯'}</p>`;
+            <p class="letter-cta">${problems > 10 ? 'Amazing week! Keep pushing forward! ≡ƒÜÇ' : problems > 0 ? 'Good progress! Try to increase your daily practice. ≡ƒÆ¬' : 'Let\'s get back on track this week! ≡ƒÄ»'}</p>`;
         $('#progress-letter-overlay')?.classList.add('active');
     }
 
-    // ── First Login ──
+    // ΓöÇΓöÇ First Login ΓöÇΓöÇ
     function markFirstLogin() {
         if (!localStorage.getItem(FIRST_LOGIN_KEY)) {
             localStorage.setItem(FIRST_LOGIN_KEY, new Date().toISOString());
         }
     }
 
-    // ── Badge Checking ──
+    // ΓöÇΓöÇ Badge Checking ΓöÇΓöÇ
     function checkNewBadges() {
         const earned = getEarnedBadges();
         const prev = JSON.parse(localStorage.getItem('codepulse_earned_badges') || '[]');
@@ -1490,7 +1490,7 @@
         }
     }
 
-    // ── Learning Path ──
+    // ΓöÇΓöÇ Learning Path ΓöÇΓöÇ
     function renderLearningPath() {
         const roadmap = $('#lp-roadmap');
         if (!roadmap) return;
@@ -1509,7 +1509,7 @@
             const status = isDone ? 'done' : isNext ? 'current' : 'locked';
             html += `<div class="lp-node ${status}">
                 <div class="lp-node-connector">${idx < LEARNING_PATH_ORDER.length - 1 ? '<div class="lp-line"></div>' : ''}</div>
-                <div class="lp-node-circle">${isDone ? '✓' : item.icon}</div>
+                <div class="lp-node-circle">${isDone ? 'Γ£ô' : item.icon}</div>
                 <div class="lp-node-info">
                     <span class="lp-node-title">${item.topic}</span>
                     <span class="lp-node-desc">${item.desc}</span>
@@ -1524,7 +1524,7 @@
         if ($('#lp-total-count')) $('#lp-total-count').textContent = LEARNING_PATH_ORDER.length;
         if (recommended) {
             if ($('#lp-recommended-topic')) $('#lp-recommended-topic').textContent = recommended.topic;
-            const reason = (topicSessions[recommended.topic] || 0) === 0 ? "— You haven't practiced this yet" : `— Only ${topicSessions[recommended.topic]} session(s) so far`;
+            const reason = (topicSessions[recommended.topic] || 0) === 0 ? "ΓÇö You haven't practiced this yet" : `ΓÇö Only ${topicSessions[recommended.topic]} session(s) so far`;
             if ($('#lp-rec-reason')) $('#lp-rec-reason').textContent = reason;
         }
         $$('.lp-mark-btn').forEach(btn => {
@@ -1533,29 +1533,29 @@
                 d.push(btn.dataset.topic);
                 localStorage.setItem(LP_DONE_KEY, JSON.stringify(d));
                 renderLearningPath();
-                showToast(`${btn.dataset.topic} marked as complete! 🎉`);
+                showToast(`${btn.dataset.topic} marked as complete! ≡ƒÄë`);
             });
         });
     }
 
-    // ── Shoutout Wall ──
+    // ΓöÇΓöÇ Shoutout Wall ΓöÇΓöÇ
     function renderShoutoutWall() {
         const grid = $('#shoutout-grid');
         if (!grid) return;
         const shoutouts = [];
         const total = sessions.reduce((a, s) => a + s.problems, 0);
         const streak = calculateStreak();
-        if (sessions.length > 0) shoutouts.push({ emoji: '🎉', title: 'First Session!', text: 'Started the coding journey!' });
-        if (streak >= 3) shoutouts.push({ emoji: '🌟', title: '3-Day Streak!', text: 'Consistency is building!' });
-        if (streak >= 7) shoutouts.push({ emoji: '🔥', title: '7-Day Streak!', text: 'A whole week of practice!' });
-        if (streak >= 14) shoutouts.push({ emoji: '⚡', title: '2-Week Streak!', text: 'Unstoppable momentum!' });
-        if (streak >= 30) shoutouts.push({ emoji: '💎', title: 'Month-long Streak!', text: 'True dedication!' });
-        if (total >= 50) shoutouts.push({ emoji: '🧠', title: '50 Problems!', text: 'Half century of solutions!' });
-        if (total >= 100) shoutouts.push({ emoji: '💯', title: '100 Problems!', text: 'Triple digits achieved!' });
+        if (sessions.length > 0) shoutouts.push({ emoji: '≡ƒÄë', title: 'First Session!', text: 'Started the coding journey!' });
+        if (streak >= 3) shoutouts.push({ emoji: '≡ƒîƒ', title: '3-Day Streak!', text: 'Consistency is building!' });
+        if (streak >= 7) shoutouts.push({ emoji: '≡ƒöÑ', title: '7-Day Streak!', text: 'A whole week of practice!' });
+        if (streak >= 14) shoutouts.push({ emoji: 'ΓÜí', title: '2-Week Streak!', text: 'Unstoppable momentum!' });
+        if (streak >= 30) shoutouts.push({ emoji: '≡ƒÆÄ', title: 'Month-long Streak!', text: 'True dedication!' });
+        if (total >= 50) shoutouts.push({ emoji: '≡ƒºá', title: '50 Problems!', text: 'Half century of solutions!' });
+        if (total >= 100) shoutouts.push({ emoji: '≡ƒÆ»', title: '100 Problems!', text: 'Triple digits achieved!' });
         const xp = getXP();
         const { level } = getLevel(xp);
-        if (level >= 4) shoutouts.push({ emoji: '⚡', title: 'Intermediate!', text: 'Leveled up past beginner!' });
-        if (level >= 7) shoutouts.push({ emoji: '🔥', title: 'Advanced!', text: 'High-level coder!' });
+        if (level >= 4) shoutouts.push({ emoji: 'ΓÜí', title: 'Intermediate!', text: 'Leveled up past beginner!' });
+        if (level >= 7) shoutouts.push({ emoji: '≡ƒöÑ', title: 'Advanced!', text: 'High-level coder!' });
         if (shoutouts.length === 0) {
             grid.innerHTML = '<div class="empty-state"><span class="material-icons-outlined">campaign</span><p>Complete milestones to see shoutouts here!</p></div>';
             return;
@@ -1563,7 +1563,7 @@
         grid.innerHTML = shoutouts.map(s => `<div class="shoutout-card"><span class="shoutout-emoji">${s.emoji}</span><strong>${s.title}</strong><p>${s.text}</p></div>`).join('');
     }
 
-    // ── Study Buddy ──
+    // ΓöÇΓöÇ Study Buddy ΓöÇΓöÇ
     function renderStudyBuddy() {
         const match = $('#buddy-match');
         if (!match) return;
@@ -1571,12 +1571,12 @@
         const streak = Math.floor(Math.random() * 15) + 1;
         match.innerHTML = `<div class="buddy-profile">
             <div class="buddy-avatar" style="background:${buddy.color}">${buddy.initials}</div>
-            <div class="buddy-info"><strong>${buddy.name}</strong><span>Practicing: ${buddy.topics.join(', ')}</span><span>🔥 ${streak}-day streak</span></div>
+            <div class="buddy-info"><strong>${buddy.name}</strong><span>Practicing: ${buddy.topics.join(', ')}</span><span>≡ƒöÑ ${streak}-day streak</span></div>
         </div>
         <p class="buddy-msg">Team up and hold each other accountable! Practice together daily.</p>`;
     }
 
-    // ── Analytics: Mood Chart ──
+    // ΓöÇΓöÇ Analytics: Mood Chart ΓöÇΓöÇ
     function renderMoodChart() {
         const ctx = document.getElementById('mood-chart');
         if (!ctx) return;
@@ -1594,14 +1594,14 @@
                     tension: 0.4, pointRadius: 6, pointBackgroundColor: isDark ? '#ffba20' : '#e65100',
                     pointBorderColor: isDark ? '#1d2023' : '#fff', pointBorderWidth: 2 }]
             }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false },
-                tooltip: { callbacks: { label: (c) => ['', 'Frustrated 😕', 'Neutral 😐', 'Good 😊', 'Great 😄', 'Amazing 🤩'][c.raw] || '' } } },
+                tooltip: { callbacks: { label: (c) => ['', 'Frustrated ≡ƒÿò', 'Neutral ≡ƒÿÉ', 'Good ≡ƒÿè', 'Great ≡ƒÿä', 'Amazing ≡ƒñ⌐'][c.raw] || '' } } },
                 scales: { x: { grid: { display: false }, ticks: { color: textColor, font: { family: 'Lexend', size: 11 } }, border: { display: false } },
                     y: { min: 0, max: 5, ticks: { color: textColor, font: { family: 'Lexend', size: 11 }, stepSize: 1,
-                        callback: v => ['', '😕', '😐', '😊', '😄', '🤩'][v] || '' }, grid: { color: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)' }, border: { display: false } } } }
+                        callback: v => ['', '≡ƒÿò', '≡ƒÿÉ', '≡ƒÿè', '≡ƒÿä', '≡ƒñ⌐'][v] || '' }, grid: { color: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)' }, border: { display: false } } } }
         });
     }
 
-    // ── Analytics: Difficulty Trend ──
+    // ΓöÇΓöÇ Analytics: Difficulty Trend ΓöÇΓöÇ
     function renderDifficultyTrendChart() {
         const ctx = document.getElementById('difficulty-trend-chart');
         if (!ctx) return;
@@ -1620,7 +1620,7 @@
         });
     }
 
-    // ── Analytics: Best Day ──
+    // ΓöÇΓöÇ Analytics: Best Day ΓöÇΓöÇ
     function renderBestDayChart() {
         const ctx = document.getElementById('best-day-chart');
         if (!ctx) return;
@@ -1641,7 +1641,7 @@
         });
     }
 
-    // ── Analytics: Time Heatmap ──
+    // ΓöÇΓöÇ Analytics: Time Heatmap ΓöÇΓöÇ
     function renderTimeHeatmap() {
         const container = $('#time-heatmap');
         if (!container) return;
@@ -1672,16 +1672,16 @@
         container.innerHTML = html;
     }
 
-    // ── Analytics: Mood Summary ──
+    // ΓöÇΓöÇ Analytics: Mood Summary ΓöÇΓöÇ
     function renderMoodSummary() {
         const grid = $('#mood-summary-grid');
         if (!grid) return;
         const moods = [
-            { key: 'frustrated', emoji: '😕', label: 'Frustrated' },
-            { key: 'neutral', emoji: '😐', label: 'Neutral' },
-            { key: 'good', emoji: '😊', label: 'Good' },
-            { key: 'great', emoji: '😄', label: 'Great' },
-            { key: 'amazing', emoji: '🤩', label: 'Amazing' },
+            { key: 'frustrated', emoji: '≡ƒÿò', label: 'Frustrated' },
+            { key: 'neutral', emoji: '≡ƒÿÉ', label: 'Neutral' },
+            { key: 'good', emoji: '≡ƒÿè', label: 'Good' },
+            { key: 'great', emoji: '≡ƒÿä', label: 'Great' },
+            { key: 'amazing', emoji: '≡ƒñ⌐', label: 'Amazing' },
         ];
         const counts = {};
         moods.forEach(m => { counts[m.key] = 0; });
@@ -1697,6 +1697,6 @@
         }).join('');
     }
 
-    // ── Boot ──
+    // ΓöÇΓöÇ Boot ΓöÇΓöÇ
     document.addEventListener('DOMContentLoaded', init);
 })();

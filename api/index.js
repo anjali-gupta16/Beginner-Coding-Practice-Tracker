@@ -4,14 +4,12 @@ const fs = require('fs').promises;
 const path = require('path');
 
 const app = express();
+const DB_PATH = path.join(process.cwd(), 'db.json');
+
 app.use(cors());
 app.use(express.json());
 
-// Serve static files from the root directory
-app.use(express.static(__dirname));
-
-const DB_PATH = path.join(__dirname, 'db.json');
-
+// Helper reading/writing DB
 async function readDB() {
     try {
         const data = await fs.readFile(DB_PATH, 'utf8');
@@ -30,8 +28,8 @@ async function writeDB(data) {
     await fs.writeFile(DB_PATH, JSON.stringify(data, null, 2));
 }
 
-// API Routes
-app.post('/api/register', async (req, res) => {
+// Routes - Supporting both /login and /api/login for maximum compatibility
+const registerHandler = async (req, res) => {
     const { name, email, password } = req.body;
     const db = await readDB();
     if (db.users.find(u => u.email === email)) return res.status(400).json({ error: 'User exists' });
@@ -39,43 +37,44 @@ app.post('/api/register', async (req, res) => {
     db.users.push(newUser);
     await writeDB(db);
     res.json({ message: 'Success', user: { id: newUser.id } });
-});
+};
 
-app.post('/api/login', async (req, res) => {
+const loginHandler = async (req, res) => {
     const { email, password } = req.body;
     const db = await readDB();
     const user = db.users.find(u => u.email === email && u.password === password);
     if (!user) return res.status(401).json({ error: 'Invalid' });
-    res.json({ user: { id: user.id } });
-});
+    res.json({ user: { id: user.id, name: user.name } });
+};
 
-app.post('/api/save', async (req, res) => {
+const saveHandler = async (req, res) => {
     const { userId, payload } = req.body;
     const db = await readDB();
     const index = db.users.findIndex(u => u.id === userId);
-    if (index === -1) return res.status(404).json({ error: 'Not found' });
+    if (index === -1) return res.status(404).json({ error: 'User not found' });
     db.users[index].data = { ...db.users[index].data, ...payload };
     await writeDB(db);
     res.json({ message: 'Saved' });
-});
+};
 
-app.get('/api/load/:userId', async (req, res) => {
+const loadHandler = async (req, res) => {
     const { userId } = req.params;
     const db = await readDB();
     const user = db.users.find(u => u.id === userId);
     res.json({ data: user ? user.data : {} });
-});
+};
 
-// Master route to serve index.html for root and all other paths
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
+// Map routes to handlers
+app.post('/api/register', registerHandler);
+app.post('/register', registerHandler);
 
-// For compatibility with Vercel's Serverless Function mode
+app.post('/api/login', loginHandler);
+app.post('/login', loginHandler);
+
+app.post('/api/save', saveHandler);
+app.post('/save', saveHandler);
+
+app.get('/api/load/:userId', loadHandler);
+app.get('/load/:userId', loadHandler);
+
 module.exports = app;
-
-// For compatibility with local development
-if (require.main === module) {
-    const PORT = process.env.PORT || 3001;
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-}
