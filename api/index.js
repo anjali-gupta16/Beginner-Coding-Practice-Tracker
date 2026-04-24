@@ -9,12 +9,6 @@ const DB_PATH = path.join(process.cwd(), 'db.json');
 app.use(cors());
 app.use(express.json());
 
-// Serve static files from the root directory
-app.use(express.static(path.join(__dirname, '..')));
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'index.html'));
-});
-
 // Helper reading/writing DB
 async function readDB() {
     try {
@@ -46,13 +40,12 @@ app.post('/api/register', async (req, res) => {
         return res.status(400).json({ error: 'User already exists' });
     }
 
-    // In a real app, hash password!
     const newUser = {
         id: Date.now().toString(),
         name,
         email,
         password,
-        data: {} // Holds user's localStorage equivalent data
+        data: {}
     };
 
     db.users.push(newUser);
@@ -114,11 +107,6 @@ app.get('/api/load/:userId', async (req, res) => {
     }
 
     res.json({ data: user.data || {} });
-});
-
-// Wildcard to catch any other routes and serve index.html
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
 module.exports = app;
