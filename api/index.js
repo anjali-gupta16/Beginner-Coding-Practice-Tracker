@@ -8,7 +8,12 @@ const DB_PATH = path.join(process.cwd(), 'db.json');
 
 app.use(cors());
 app.use(express.json());
-// Static serving is handled by Vercel from the root directory
+
+// Serve static files from the root directory
+app.use(express.static(path.join(__dirname, '..')));
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'index.html'));
+});
 
 // Helper reading/writing DB
 async function readDB() {
@@ -109,6 +114,11 @@ app.get('/api/load/:userId', async (req, res) => {
     }
 
     res.json({ data: user.data || {} });
+});
+
+// Wildcard to catch any other routes and serve index.html
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
 module.exports = app;
