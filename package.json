@@ -2,6 +2,7 @@
   "name": "project-1",
   "version": "1.0.0",
   "description": "CodePulse Practice Tracker",
+  "main": "api/index.js",
   "dependencies": {
     "cors": "^2.8.6",
     "express": "^5.2.1"
