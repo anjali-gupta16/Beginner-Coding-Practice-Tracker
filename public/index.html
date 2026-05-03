@@ -4977,46 +4977,61 @@
 
             function handleFormSubmit(e) {
                 e.preventDefault();
+                console.log('CodePulse: Handling form submit');
 
-                const date = $('#practice-date').value;
-                const topic = $('#practice-topic').value;
-                const difficulty = $('#practice-difficulty').value;
-                const problems = parseInt($('#practice-problems').value, 10);
-                const time = parseInt($('#practice-time').value, 10);
-                const notes = $('#practice-notes').value.trim();
-                const mood = $('#practice-mood').value || 'good';
+                try {
+                    const date = $('#practice-date').value;
+                    const topic = $('#practice-topic').value;
+                    const difficulty = $('#practice-difficulty').value;
+                    const problems = parseInt($('#practice-problems').value, 10);
+                    const time = parseInt($('#practice-time').value, 10);
+                    const notes = $('#practice-notes').value.trim();
+                    const mood = $('#practice-mood').value || 'good';
 
-                if (!date || !topic || !problems || !time) return;
+                    if (!date || !topic || !problems || !time) {
+                        showToast('Please fill in all required fields! ⚠️');
+                        return;
+                    }
 
-                addSession({ date, topic, difficulty, problems, time, notes, mood });
+                    addSession({ date, topic, difficulty, problems, time, notes, mood });
 
-                // Explicitly clear fields
-                $('#practice-form').reset();
-                $('#practice-topic').value = '';
-                $('#practice-problems').value = '';
-                $('#practice-time').value = '';
-                $('#practice-notes').value = '';
-                
-                setDefaultDate();
-                
-                // Reset Difficulty buttons
-                $$('.diff-btn').forEach(b => b.classList.remove('active'));
-                if ($('.diff-btn')) {
-                    $('.diff-btn')[1].classList.add('active'); // default to Medium
-                    $('#practice-difficulty').value = 'Medium';
+                    // Explicitly clear fields
+                    $('#practice-form').reset();
+                    $('#practice-topic').value = '';
+                    $('#practice-problems').value = '';
+                    $('#practice-time').value = '';
+                    $('#practice-notes').value = '';
+                    
+                    setDefaultDate();
+                    
+                    // Reset Difficulty buttons
+                    $$('.diff-btn').forEach(b => b.classList.remove('active'));
+                    if ($('.diff-btn')[1]) {
+                        $('.diff-btn')[1].classList.add('active');
+                        $('#practice-difficulty').value = 'Medium';
+                    }
+
+                    // Reset Mood buttons
+                    $$('.mood-btn').forEach(b => b.classList.remove('active'));
+                    if ($('.mood-btn')[2]) {
+                        $('.mood-btn')[2].classList.add('active');
+                        $('#practice-mood').value = 'good';
+                    }
+
+                    showToast('Session saved! Redirecting... 🚀');
+                    
+                    // Update tip
+                    if ($('#practice-tip')) $('#practice-tip').textContent = TIPS[Math.floor(Math.random() * TIPS.length)];
+
+                    // Redirect after a short delay
+                    setTimeout(() => {
+                        navigateTo('dashboard');
+                    }, 800);
+
+                } catch (err) {
+                    console.error('CodePulse Form Error:', err);
+                    showToast('Error saving session. Please try again.');
                 }
-
-                // Reset Mood buttons
-                $$('.mood-btn').forEach(b => b.classList.remove('active'));
-                if ($('.mood-btn')) {
-                    $('.mood-btn')[2].classList.add('active'); // default to Good
-                    $('#practice-mood').value = 'good';
-                }
-
-                showToast('Session saved successfully! 🎯');
-
-                // Update tip
-                $('#practice-tip').textContent = TIPS[Math.floor(Math.random() * TIPS.length)];
             }
 
             //  Render All 
