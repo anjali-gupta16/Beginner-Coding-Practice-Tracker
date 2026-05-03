@@ -3052,12 +3052,18 @@ h1, h2, h3, h4, h5 { font-family: var(--font-headline); font-weight: 700; }
 
     //  Event Binding 
     function bindAuth() {
-        $$('.auth-tab-btn').forEach(btn => {
+        console.log('CodePulse: Binding Auth Events');
+        const tabs = $$('.auth-tab-btn');
+        const contents = $$('.auth-tab-content');
+
+        tabs.forEach(btn => {
             btn.addEventListener('click', () => {
-                $$('.auth-tab-btn').forEach(b => b.classList.remove('active'));
-                $$('.auth-tab-content').forEach(c => c.classList.remove('active'));
+                console.log('Switching to tab:', btn.dataset.tab);
+                tabs.forEach(b => b.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
                 btn.classList.add('active');
-                $(`#${btn.dataset.tab}`).classList.add('active');
+                const target = $(`#${btn.dataset.tab}`);
+                if (target) target.classList.add('active');
             });
         });
 
