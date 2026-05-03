@@ -3780,7 +3780,7 @@ h1, h2, h3, h4, h5 { font-family: var(--font-headline); font-weight: 700; }
 
             return `
                 <div class="badge-card ${completed ? 'completed' : 'in-progress'}">
-                    <span class="material-icons-outlined" style="font-size:28px;color:var(--primary)">military_tech</span>
+                    <span class="badge-emoji" style="font-size:32px; margin-bottom:10px;">${badge.emoji}</span>
                     <span class="badge-name">${badge.name}</span>
                     ${completed
                     ? '<span class="badge-status done"> Completed</span>'
@@ -4228,7 +4228,7 @@ h1, h2, h3, h4, h5 { font-family: var(--font-headline); font-weight: 700; }
             const status = isDone ? 'done' : isNext ? 'current' : 'locked';
             html += `<div class="lp-node ${status}">
                 <div class="lp-node-connector">${idx < LEARNING_PATH_ORDER.length - 1 ? '<div class="lp-line"></div>' : ''}</div>
-                <div class="lp-node-circle">${isDone ? '' : item.icon}</div>
+                <div class="lp-node-circle">${item.icon || '📍'}</div>
                 <div class="lp-node-info">
                     <span class="lp-node-title">${item.topic}</span>
                     <span class="lp-node-desc">${item.desc}</span>
