@@ -9,23 +9,24 @@ const DB_PATH = path.join(process.cwd(), 'db.json');
 app.use(cors());
 app.use(express.json());
 
-// Helper reading/writing DB
+// In-memory fallback for Vercel (read-only filesystem)
+let inMemoryDB = { users: [] };
+
 async function readDB() {
     try {
         const data = await fs.readFile(DB_PATH, 'utf8');
         return JSON.parse(data);
     } catch (err) {
-        if (err.code === 'ENOENT') {
-            const initial = { users: [] };
-            await fs.writeFile(DB_PATH, JSON.stringify(initial, null, 2));
-            return initial;
-        }
-        throw err;
+        return inMemoryDB;
     }
 }
 
 async function writeDB(data) {
-    await fs.writeFile(DB_PATH, JSON.stringify(data, null, 2));
+    try {
+        await fs.writeFile(DB_PATH, JSON.stringify(data, null, 2));
+    } catch (err) {
+        inMemoryDB = data;
+    }
 }
 
 // Routes - Supporting both /login and /api/login for maximum compatibility
