@@ -23,5 +23,19 @@
       "source": "/(.*)",
       "destination": "/public/$1"
     }
+  ],
+  "headers": [
+    {
+      "source": "/public/(.*)\\.js",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate, max-age=0" }
+      ]
+    },
+    {
+      "source": "/public/(.*)\\.css",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate, max-age=0" }
+      ]
+    }
   ]
 }
