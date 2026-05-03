@@ -4993,11 +4993,22 @@
                 // Reset form
                 $('#practice-form').reset();
                 setDefaultDate();
+                
+                // Reset Difficulty buttons
                 $$('.diff-btn').forEach(b => b.classList.remove('active'));
-                $('.diff-btn')[1].classList.add('active'); // default to Medium
-                $('#practice-difficulty').value = 'Medium';
+                if ($('.diff-btn')) {
+                    $('.diff-btn')[1].classList.add('active'); // default to Medium
+                    $('#practice-difficulty').value = 'Medium';
+                }
 
-                showToast('Session saved successfully! ');
+                // Reset Mood buttons
+                $$('.mood-btn').forEach(b => b.classList.remove('active'));
+                if ($('.mood-btn')) {
+                    $('.mood-btn')[2].classList.add('active'); // default to Good
+                    $('#practice-mood').value = 'good';
+                }
+
+                showToast('Session saved successfully! 🎯');
 
                 // Update tip
                 $('#practice-tip').textContent = TIPS[Math.floor(Math.random() * TIPS.length)];
