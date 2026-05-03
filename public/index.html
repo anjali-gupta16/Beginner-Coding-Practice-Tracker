@@ -2937,8 +2937,9 @@ h1, h2, h3, h4, h5 { font-family: var(--font-headline); font-weight: 700; }
 
     function initApp() {
         // Update user display names
-        const firstName = currentUser ? currentUser.name.split(' ')[0] : 'Alex';
-        const nameDisplay = currentUser ? currentUser.name : 'Alex Chen';
+        const userName = (currentUser && currentUser.name) ? currentUser.name : 'User';
+        const firstName = userName.split(' ')[0] || 'User';
+        const nameDisplay = userName;
         const initials = firstName.substring(0, 2).toUpperCase();
         
         if (document.querySelector('#welcome-name')) document.querySelector('#welcome-name').textContent = firstName;
