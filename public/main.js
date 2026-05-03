@@ -96,7 +96,7 @@
         "Regular practice of recursion strengthens algorithmic intuition. Try solving one new problem each day!",
         "When stuck on a problem, try breaking it down into smaller sub-problems first.",
         "Reading other people's code is one of the best ways to learn new patterns and techniques.",
-        "Don't just solve problems ΓÇö understand the time and space complexity of your solutions.",
+        "Don't just solve problems - understand the time and space complexity of your solutions.",
         "Take breaks! The Pomodoro Technique (25 min focus + 5 min break) works great for coding.",
         "Explain your solution out loud. Teaching is the best way to solidify understanding.",
         "Start with brute force, then optimize. A working solution is better than no solution.",
@@ -105,10 +105,10 @@
 
     const MOTIVATION_MESSAGES = [
         { min: 0, max: 0, emoji: '≡ƒÜÇ', text: 'Start your coding journey today!', sub: 'Consistency is the key to mastery.' },
-        { min: 1, max: 2, emoji: '≡ƒî▒', text: 'Great start! Keep building momentum!', sub: 'Every expert was once a beginner.' },
+        { min: 1, max: 2, emoji: '', text: 'Great start! Keep building momentum!', sub: 'Every expert was once a beginner.' },
         { min: 3, max: 6, emoji: '≡ƒöÑ', text: 'You\'re on fire!', sub: 'Your dedication is paying off.' },
         { min: 7, max: 13, emoji: 'Γ¡É', text: 'Incredible consistency!', sub: 'You\'re in the top tier of dedicated learners.' },
-        { min: 14, max: 29, emoji: '≡ƒÆÄ', text: 'Diamond-level dedication!', sub: 'Two weeks strong ΓÇö you\'re unstoppable!' },
+        { min: 14, max: 29, emoji: '≡ƒÆÄ', text: 'Diamond-level dedication!', sub: 'Two weeks strong - you\'re unstoppable!' },
         { min: 30, max: Infinity, emoji: '≡ƒÅå', text: 'You\'re a legend!', sub: 'A month+ streak. True mastery in the making.' },
     ];
 
@@ -116,7 +116,7 @@
         { id: 'first_login', name: 'First Login ≡ƒÄë', emoji: '≡ƒÄë', type: 'first_login', threshold: 1 },
         { id: 'streak_3', name: '3-Day Streak ≡ƒîƒ', emoji: '≡ƒîƒ', type: 'streak', threshold: 3 },
         { id: 'streak_7', name: '7-Day Streak ≡ƒöÑ', emoji: '≡ƒöÑ', type: 'streak', threshold: 7 },
-        { id: 'streak_14', name: '14-Day Streak ΓÜí', emoji: 'ΓÜí', type: 'streak', threshold: 14 },
+        { id: 'streak_14', name: '14-Day Streak ', emoji: '', type: 'streak', threshold: 14 },
         { id: 'streak_30', name: '30-Day Streak ≡ƒÆÄ', emoji: '≡ƒÆÄ', type: 'streak', threshold: 30 },
         { id: 'solved_10', name: '10 Problems Solved', emoji: '≡ƒÄ»', type: 'solved', threshold: 10 },
         { id: 'solved_50', name: '50 Problems Solved', emoji: '≡ƒºá', type: 'solved', threshold: 50 },
@@ -126,7 +126,7 @@
         { id: 'hours_50', name: '50 Hours Logged ≡ƒôÜ', emoji: '≡ƒôÜ', type: 'hours', threshold: 50 },
         { id: 'topic_master', name: 'Topic Explorer ≡ƒù║∩╕Å', emoji: '≡ƒù║∩╕Å', type: 'topics', threshold: 5 },
         { id: 'hard_solver', name: 'Hard Mode Hero ≡ƒÆ¬', emoji: '≡ƒÆ¬', type: 'hard', threshold: 10 },
-        { id: 'speed_demon', name: 'Speed Demon ΓÜí', emoji: 'ΓÜí', type: 'speed', threshold: 1 },
+        { id: 'speed_demon', name: 'Speed Demon ', emoji: '', type: 'speed', threshold: 1 },
         { id: 'night_owl', name: 'Night Owl ≡ƒªë', emoji: '≡ƒªë', type: 'night_owl', threshold: 3 },
         { id: 'early_bird', name: 'Early Bird ≡ƒÉª', emoji: '≡ƒÉª', type: 'early_bird', threshold: 3 },
         { id: 'consistent_coder', name: 'Consistent Coder ≡ƒôå', emoji: '≡ƒôå', type: 'consistent', threshold: 1 },
@@ -162,13 +162,13 @@
         { text: 'Practice Loops for 30+ minutes', topic: 'Loops', minTime: 30 },
         { text: 'Solve 1 Hard problem in any topic', difficulty: 'Hard', count: 1 },
         { text: 'Complete 3 problems in Strings', topic: 'Strings', count: 3 },
-        { text: 'Practice Functions ΓÇö solve 2 problems', topic: 'Functions', count: 2 },
+        { text: 'Practice Functions - solve 2 problems', topic: 'Functions', count: 2 },
         { text: 'Tackle a Recursion problem today', topic: 'Recursion', count: 1 },
         { text: 'Solve 2 Medium difficulty problems', difficulty: 'Medium', count: 2 },
         { text: 'Log 45+ minutes of practice today', minTime: 45 },
         { text: 'Solve 3 problems in any topic', count: 3 },
         { text: 'Try an OOP problem today', topic: 'OOP', count: 1 },
-        { text: 'Practice Sorting ΓÇö solve 2 problems', topic: 'Sorting', count: 2 },
+        { text: 'Practice Sorting - solve 2 problems', topic: 'Sorting', count: 2 },
         { text: 'Solve 1 Linked Lists problem', topic: 'Linked Lists', count: 1 },
         { text: 'Practice for 60+ minutes today', minTime: 60 },
         { text: 'Solve 4 easy problems in any topic', difficulty: 'Easy', count: 4 },
@@ -594,7 +594,7 @@
         const quoteEl = $('#daily-quote');
         if (quoteEl) {
             quoteEl.querySelector('p').textContent = `"${quote.text}"`;
-            quoteEl.querySelector('.quote-author').textContent = `ΓÇö ${quote.author}`;
+            quoteEl.querySelector('.quote-author').textContent = `- ${quote.author}`;
         }
     }
 
@@ -783,7 +783,7 @@
         const topicCounts = {};
         sessions.forEach(s => { topicCounts[s.topic] = (topicCounts[s.topic] || 0) + s.problems; });
         const topTopic = Object.entries(topicCounts).sort((a, b) => b[1] - a[1])[0];
-        $('#top-topic').textContent = topTopic ? topTopic[0] : 'ΓÇö';
+        $('#top-topic').textContent = topTopic ? topTopic[0] : '-';
 
         renderProgressWeeklyChart();
         renderTopicChart();
@@ -1249,8 +1249,8 @@
         return { level, xpInLevel: remaining, xpForNext: level * 100 };
     }
     function getLevelInfo(level) {
-        if (level <= 3) return { name: 'Beginner', icon: '≡ƒî▒' };
-        if (level <= 6) return { name: 'Intermediate', icon: 'ΓÜí' };
+        if (level <= 3) return { name: 'Beginner', icon: '' };
+        if (level <= 6) return { name: 'Intermediate', icon: '' };
         if (level <= 9) return { name: 'Advanced', icon: '≡ƒöÑ' };
         return { name: 'Master', icon: '≡ƒææ' };
     }
@@ -1265,7 +1265,7 @@
         if ($('#xp-bar-fill')) $('#xp-bar-fill').style.width = pct + '%';
         if ($('#xp-bar-text')) $('#xp-bar-text').textContent = `${xpInLevel} / ${xpForNext} XP`;
         // Banner
-        if ($('#xp-banner-level')) $('#xp-banner-level').textContent = `Level ${level} ΓÇö ${info.name}`;
+        if ($('#xp-banner-level')) $('#xp-banner-level').textContent = `Level ${level} - ${info.name}`;
         if ($('#xp-banner-icon')) $('#xp-banner-icon').textContent = info.icon;
         if ($('#xp-banner-bar-fill')) $('#xp-banner-bar-fill').style.width = pct + '%';
         if ($('#xp-banner-xp')) $('#xp-banner-xp').textContent = `${xpInLevel} / ${xpForNext} XP to next level`;
@@ -1524,7 +1524,7 @@
         if ($('#lp-total-count')) $('#lp-total-count').textContent = LEARNING_PATH_ORDER.length;
         if (recommended) {
             if ($('#lp-recommended-topic')) $('#lp-recommended-topic').textContent = recommended.topic;
-            const reason = (topicSessions[recommended.topic] || 0) === 0 ? "ΓÇö You haven't practiced this yet" : `ΓÇö Only ${topicSessions[recommended.topic]} session(s) so far`;
+            const reason = (topicSessions[recommended.topic] || 0) === 0 ? "- You haven't practiced this yet" : `- Only ${topicSessions[recommended.topic]} session(s) so far`;
             if ($('#lp-rec-reason')) $('#lp-rec-reason').textContent = reason;
         }
         $$('.lp-mark-btn').forEach(btn => {
@@ -1548,13 +1548,13 @@
         if (sessions.length > 0) shoutouts.push({ emoji: '≡ƒÄë', title: 'First Session!', text: 'Started the coding journey!' });
         if (streak >= 3) shoutouts.push({ emoji: '≡ƒîƒ', title: '3-Day Streak!', text: 'Consistency is building!' });
         if (streak >= 7) shoutouts.push({ emoji: '≡ƒöÑ', title: '7-Day Streak!', text: 'A whole week of practice!' });
-        if (streak >= 14) shoutouts.push({ emoji: 'ΓÜí', title: '2-Week Streak!', text: 'Unstoppable momentum!' });
+        if (streak >= 14) shoutouts.push({ emoji: '', title: '2-Week Streak!', text: 'Unstoppable momentum!' });
         if (streak >= 30) shoutouts.push({ emoji: '≡ƒÆÄ', title: 'Month-long Streak!', text: 'True dedication!' });
         if (total >= 50) shoutouts.push({ emoji: '≡ƒºá', title: '50 Problems!', text: 'Half century of solutions!' });
         if (total >= 100) shoutouts.push({ emoji: '≡ƒÆ»', title: '100 Problems!', text: 'Triple digits achieved!' });
         const xp = getXP();
         const { level } = getLevel(xp);
-        if (level >= 4) shoutouts.push({ emoji: 'ΓÜí', title: 'Intermediate!', text: 'Leveled up past beginner!' });
+        if (level >= 4) shoutouts.push({ emoji: '', title: 'Intermediate!', text: 'Leveled up past beginner!' });
         if (level >= 7) shoutouts.push({ emoji: '≡ƒöÑ', title: 'Advanced!', text: 'High-level coder!' });
         if (shoutouts.length === 0) {
             grid.innerHTML = '<div class="empty-state"><span class="material-icons-outlined">campaign</span><p>Complete milestones to see shoutouts here!</p></div>';
