@@ -1012,9 +1012,9 @@
         container.innerHTML = allEntries.map((entry, idx) => {
             let rankDisplay = idx + 1;
             let medalClass = '';
-            if (idx === 0) rankDisplay = '';
-            else if (idx === 1) rankDisplay = '';
-            else if (idx === 2) rankDisplay = '';
+            if (idx === 0) rankDisplay = '1';
+            else if (idx === 1) rankDisplay = '2';
+            else if (idx === 2) rankDisplay = '3';
 
             return `
                 <div class="leaderboard-row ${entry.isUser ? 'current-user' : ''}">
@@ -1061,7 +1061,7 @@
 
             return `
                 <div class="badge-card ${completed ? 'completed' : 'in-progress'}">
-                    <span class="badge-emoji">${badge.emoji}</span>
+                    <span class="material-icons-outlined" style="font-size:28px;color:var(--primary)">military_tech</span>
                     <span class="badge-name">${badge.name}</span>
                     ${completed
                     ? '<span class="badge-status done"> Completed</span>'
@@ -1291,7 +1291,7 @@
         const todayS = sessions.filter(s => s.date === getToday());
         const done = isChallengeComplete(c, todayS);
         if ($('#daily-challenge-status')) {
-            $('#daily-challenge-status').textContent = done ? 'Completed ' : 'Pending';
+            $('#daily-challenge-status').textContent = done ? 'Completed' : 'Pending';
             $('#daily-challenge-status').className = 'daily-challenge-status' + (done ? ' done' : '');
         }
     }
@@ -1312,7 +1312,7 @@
             if (!localStorage.getItem(key)) {
                 localStorage.setItem(key, '1');
                 addXP(25);
-                showToast('Daily Challenge completed! +25 XP ');
+                showToast('Daily Challenge completed! +25 XP');
             }
         }
         renderDailyChallenge();
@@ -1560,7 +1560,7 @@
             grid.innerHTML = '<div class="empty-state"><span class="material-icons-outlined">campaign</span><p>Complete milestones to see shoutouts here!</p></div>';
             return;
         }
-        grid.innerHTML = shoutouts.map(s => `<div class="shoutout-card"><span class="shoutout-emoji">${s.emoji}</span><strong>${s.title}</strong><p>${s.text}</p></div>`).join('');
+        grid.innerHTML = shoutouts.map(s => `<div class="shoutout-card"><strong>${s.title}</strong><p>${s.text}</p></div>`).join('');
     }
 
     //  Study Buddy 
