@@ -4990,8 +4990,13 @@
 
                 addSession({ date, topic, difficulty, problems, time, notes, mood });
 
-                // Reset form
+                // Explicitly clear fields
                 $('#practice-form').reset();
+                $('#practice-topic').value = '';
+                $('#practice-problems').value = '';
+                $('#practice-time').value = '';
+                $('#practice-notes').value = '';
+                
                 setDefaultDate();
                 
                 // Reset Difficulty buttons
